@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Lời chúc dễ thương</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('khongian.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding-top: 100px;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .avatar {
+      width: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .username {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .message-box {
+      display: inline-block;
+      border: 1px solid white;
+      border-radius: 15px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      max-width: 80%;
+      font-size: 18px;
+      line-height: 1.6;
+      min-height: 140px;
+    }
+
+    .typewriter-text {
+      display: inline-block;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+
+    .highlight {
+      color: #ffe066;
+      font-weight: bold;
+    }
+
+    .strong {
+      color: #ff80ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="slide">
+    <img class="avatar" id="avatar" src="https://i.imgur.com/E8l9XLl.png" alt="avatar">
+    <div class="username" id="username">Chị đẹp ngơ ngơ ✨</div>
+    <div class="message-box">
+      <span class="typewriter-text" id="textDisplay"></span>
+    </div>
+  </div>
+
+  <script>
+    // Danh sách các slide (ảnh đại diện, tên, nội dung lời chúc)
+    const slides = [
+      {
+        avatar: "dethuong.png",
+        username: "Chị đẹp ngơ ngơ  ✨",
+        message: `Chúc mừng bà chị đẹp đã hoàn thành chặng đường đại học!\nMong rằng tương lai phía trước sẽ luôn rộng mở, rực rỡ và đầy ắp niềm vui như nụ cười của bạn hôm nay. ❤️`
+      },
+      {
+        avatar: "dep.png",
+        username: "Chị đẹp ngơ ngơ  ✨",
+        message: `Nhưng một hành trình tuyệt vời hơn nữa vừa mới bắt đầu.\nChúc bạn luôn giữ được đam mê, bản lĩnh và trái tim đầy nhiệt huyết!`
+      },
+      {
+        avatar: "dep1.png",
+        username: "Chị đẹp ngơ ngơ  ✨",
+        message: `<span class="highlight">Và em mong là,</span>\nMong là không có gì lấy đi được nụ cười của chị, và giờ là một tương lai cần chị khám phá. Tất cả tâm huyết những năm dài mà chị đã chinh phục được`
+      },
+      {
+        avatar: "dep2.png",
+        username: "Chị đẹp ngơ ngơ ✨",
+        message: `<span class="highlight">Em mong là,</span>\nMong là sự thành công sẽ tới với chị, và những giấc mơ chị luôn ao ước sẽ thành sự thật. Khi nào chị buồn hay áp lực thì nhớ tới thèn em này sẽ luôn tiếp nhận và giúp chị có động lực lại 💐\n\n<span class="strong">Cố lên nhé bà chị đẹpppppp! 😚😍💗</span>`
+      }
+    ];
+
+    let currentSlide = 0;
+    let charIndex = 0;
+    const avatar = document.getElementById("avatar");
+    const username = document.getElementById("username");
+    const textDisplay = document.getElementById("textDisplay");
+    const slideContainer = document.getElementById("slide");
+
+    function showSlide(index) {
+      avatar.src = slides[index].avatar;
+      username.innerText = slides[index].username;
+      textDisplay.innerHTML = "";
+      charIndex = 0;
+      typeWriter();
+    }
+
+    function typeWriter() {
+      const message = slides[currentSlide].message;
+      if (charIndex < message.length) {
+        const char = message.charAt(charIndex);
+        if (message.substring(charIndex, charIndex + 6) === "<span ") {
+          const spanEnd = message.indexOf("</span>", charIndex) + 7;
+          textDisplay.innerHTML += message.substring(charIndex, spanEnd);
+          charIndex = spanEnd;
+        } else {
+          textDisplay.innerHTML += (char === "\n") ? "<br>" : char;
+          charIndex++;
+        }
+        setTimeout(typeWriter, 45);
+      } else {
+        if (currentSlide < slides.length - 1) {
+          setTimeout(() => {
+            slideContainer.classList.remove("visible");
+            slideContainer.classList.add("hidden");
+            setTimeout(() => {
+              currentSlide++;
+              showSlide(currentSlide);
+              slideContainer.classList.remove("hidden");
+              slideContainer.classList.add("visible");
+            }, 1000);
+          }, 3000);
+        }
+      }
+    }
+
+    slideContainer.classList.add("visible");
+    showSlide(currentSlide);
+  </script>
+</body>
+</html>
